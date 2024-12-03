@@ -6,7 +6,7 @@ const nextSet = document.querySelector("#restart");
 const endGame = document.querySelector(".end");
 const follow = document.querySelector(".continue");
 const level = document.querySelector(".level");
-const cardImg = document.querySelector(".gameImage");
+const cardImg = document.querySelectorAll(".gameImage");
 
 const cardType = [
   { name: "easy", icon: "facile.png", time: 60 },
@@ -44,7 +44,9 @@ function displayCard() {
   console.log(globalTimerValue); // Afficher la valeur du timer pour vérification
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
-  cardImg.src = selectedCard.icon; // Mettre à jour l'icône de la carte
+  cardImg.forEach((elm)=>{
+    elm.src = selectedCard.icon; 
+  })// Mettre à jour l'icône de la carte
 
   return globalTimerValue; // Retourner la valeur du timer
 }

@@ -1,20 +1,184 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
 
-
-
-*{
-    margin: 0;
-    padding: 0;
-}
-body{
-    min-height: 100vh;
-}
-div{
-    padding-top: 250px;
-    text-align: center;
-    min-height: 50vh;
-    background: red;
+:root {
+  --timer-unit: 1s;
+  --timer-length: 60; /* Max timer value to adapt colors */
+  --starting-hue: 160;
+  --hue-increment: calc(360 / var(--timer-length));
 }
 
-.hidden{
-    display: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: hsl(var(--starting-hue), 80%, 60%);
+  color: white;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+main {
+  height: 100vh;
+  width: 90%;
+  max-width: 600px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.manche {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 80vh;
+  justify-content: center;
+  
+}
+
+.manche p:first-child {
+    font-size: 2em;
+    margin-bottom: 100px;
+}
+
+  .finish {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+.timer {
+  font-size: 2rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.gameImage {
+  width: 120px;
+  height: 120px;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+  margin: 20px 0;
+}
+
+.gameImage:hover {
+  transform: scale(1.1);
+}
+
+.next {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: hsl(var(--starting-hue), 70%, 50%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.next:hover {
+  background: hsl(calc(var(--starting-hue) + 40), 70%, 50%);
+}
+
+.continue {
+  display: flex;
+  gap: 10px;
+}
+
+.home,
+.restart {
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.home {
+  background: #f44336; /* Red for abandon */
+}
+
+.home:hover {
+  background: #d32f2f;
+}
+
+.restart {
+  background: #4caf50; /* Green for continue */
+}
+
+.restart:hover {
+  background: #388e3c;
+}
+
+
+
+  
+  .end.active {
+    display: block;
+    margin-top: 20px;
+    background: hsl(var(--starting-hue), 70%, 40%);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+
+.Draw .timer {
+  font-size: 2.5rem;
+  color: hsl(var(--starting-hue) + 60, 80%, 70%);
+}
+
+.Brief {
+  background: hsl(var(--starting-hue) + 30, 70%, 50%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.voting {
+  background: hsl(var(--starting-hue) + 90, 70%, 50%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Animation du fond en fonction du timer */
+@keyframes background-animation {
+  0% {
+    background-color: hsl(var(--starting-hue), 80%, 60%);
+  }
+  100% {
+    background-color: hsl(calc(var(--starting-hue) + var(--hue-increment) * var(--timer-length)), 80%, 60%);
+  }
+}
+
+body.animate-bg {
+  animation: background-animation calc(var(--timer-unit) * var(--timer-length)) linear infinite;
 }
