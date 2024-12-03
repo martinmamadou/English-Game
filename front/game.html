@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/game.css">
+    <script defer src="./game.js"></script>
+    <title>Game</title>
+</head>
+<body>
+    <main>
+        <div class="begin manche">
+            <p>beginning</p>
+            <p class="timer">3s</p>
+        </div>
+        <div class="card manche">
+            <p>Card Choice</p>
+            <p class="timer">5s</p>
+        </div>
+        <div class="Draw manche">
+            <p>Drawing</p>
+            <p class="timer">10</p>
+        </div>
+        <div class="Brief manche">
+            <p>Brief</p>
+        </div>
+        <div class="voting manche">
+            <p>voting</p>
+        </div>
+        <div class="finish">
+            <p>Manche Terminé</p>
+            <div class="continue">
+                <a href="./index.html" class="home">Abandonner</a>
+                <button id="restart" class="restart" type="submit">Continuer</button>
+            </div>
+            <div class="end hidden">
+                <a href="./index.html">Fin de partie</a>
+            </div>
+        </div>
+        <button id='suivant' class="next">
+            suivant
+        </button>
+        
+        
+    </main>
+</body>
+</html>
