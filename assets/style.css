@@ -7,6 +7,8 @@
 
 body{
     background: var(--background-color);
+    max-height: 100vh;
+    overflow: hidden;
 }
 main{
     text-align: center;
@@ -29,6 +31,11 @@ img{
     font-weight: bold;
     font-size: 1.2em;
     padding: 12px 25px;
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
 }
 
 a {
@@ -41,3 +48,57 @@ a {
     font-size: 1.5em;
     font-weight: bold;
 }
+
+label{
+    display: block;
+    margin: 0 0 10px;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2em;
+}
+
+.number-field{
+    background: var(--background-color);
+    margin: 0 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-size: 2em;
+    color: var(--jaune);
+}
+
+.number-input {
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .number-input input {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    outline: none;
+  }
+
+  .number-input button {
+    width: 40px;
+    height: 40px;
+    background: var(--orange);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+
+  .number-input button:hover {
+    background-color: #ddd;
+  }
+
+ 
+
+  .btn.start:hover {
+    background-color: #0056b3;
+  }
+

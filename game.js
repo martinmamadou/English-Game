@@ -8,14 +8,15 @@ const follow = document.querySelector(".continue");
 const level = document.querySelector(".level");
 const cardImg = document.querySelectorAll(".gameImage");
 const briefTime = document.querySelector('.Brief > .timer');
-
+const gameBG = document.querySelector('.game')
 const cardType = [
-  { name: "easy", icon: "facile.png", time: 60 },
-  { name: "medium", icon: "esprit.png", time: 40 },
-  { name: "hard", icon: "main.png", time: 20 },
-  { name: "very hard", icon: "bmx.png", time: 10 },
+  { name: "easy", icon: "facile.png", time: 60, color: '#3a2665'},
+  { name: "medium", icon: "esprit.png", time: 40 , color:'#ed6d1d'},
+  { name: "hard", icon: "main.png", time: 20, color: '#f6c543'},
+  { name: "very hard", icon: "bmx.png", time: 10, color: '#336c66'},
 ];
 
+ 
 // Variables de contrôle
 let set = 0;
 let currentIndex = 0;
@@ -26,8 +27,26 @@ let playersFinishedBriefing = 0; // Compteur de joueurs ayant terminé leur brie
 let i = 0
 let playerTimers = []; // Tableau pour stocker les timers des joueurs
 
+
+function updateSetViewer(setNumber) {
+  const setViewer = finishDiv.firstElementChild; // Sélectionne le premier enfant de finishDiv
+  const displaySet = setNumber >= 0 && setNumber <= 3 ? setNumber + 1 : setNumber;
+
+  if (setNumber === 3) {
+    // Si c'est le dernier set (set 4), affiche un message spécial
+    setViewer.innerHTML = `Congratulation! <br> You completed all rounds!`;
+  } else {
+    // Sinon, affiche normalement l'état du set
+    setViewer.innerHTML = `Round ${displaySet} <br> Completed!`;
+  }
+}
+
+
+
 // Déclaration de la variable globale pour le timer
 let globalTimerValue = 0;
+
+
 
 // Fonction pour obtenir une carte aléatoire
 function getRandomCard() {
@@ -37,6 +56,7 @@ function getRandomCard() {
 
 // Fonction pour afficher la carte (modifiée pour ne pas retourner une valeur)
 function displayCard() {
+  
   const selectedCard = getRandomCard();
   console.log(selectedCard); // Afficher la carte pour vérification
 
@@ -50,6 +70,8 @@ function displayCard() {
   cardImg.forEach((elm) => {
     elm.src = selectedCard.icon; 
   }); // Mettre à jour l'icône de la carte
+
+  gameBG.style.backgroundColor = selectedCard.color
 
   return globalTimerValue; // Retourner la valeur du timer
 }
@@ -88,10 +110,10 @@ function startTimer() {
   
   // Si c'est l'étape de briefing, on utilise le temps fixe de 30s
   if (currentStep.classList.contains("Brief")) {
+    console.log(playerName)
     const playerBrief = document.querySelector('.player')
     let Currentplayer = playerName[i]
     playerBrief.textContent = Currentplayer.name
-    console.log(Currentplayer)
     timeLeft = 1; // Temps fixe de 30 secondes
     timerElement.textContent = `${timeLeft}s`;
   } else {
@@ -140,6 +162,7 @@ function startTimer() {
 }
 console.log('ycccc', playersFinishedBriefing)
 
+
 // Fonction pour afficher l'étape suivante
 function showNext() {
   const currentStep = div[currentIndex];
@@ -160,10 +183,12 @@ function showNext() {
     currentStep.classList.add("hidden");
     suivant.classList.add("hidden");
     finishDiv.classList.remove("hidden");
+
+    updateSetViewer(set);
     set++;
   }
 
-  if (set === 2) {
+  if (set === 4) {
     follow.classList.add("hidden");
     endGame.classList.remove("hidden");
   }
@@ -171,7 +196,9 @@ function showNext() {
 
 // Fonction pour redémarrer le jeu
 function restart() {
-  if (set < 2) {
+  playersFinishedBriefing = 0; // Réinitialise le compteur de joueurs ayant terminé le briefing
+  i = 0;
+  if (set < 4) {
     currentIndex = 0;
     div.forEach((elm) => elm.classList.add("hidden"));
     div[currentIndex].classList.remove("hidden");
@@ -202,7 +229,7 @@ function restart() {
 console.log(globalTimerValue);
 startTimer();
 
-let players = 3; // Valeur par défaut au cas où aucun paramètre n'est fourni
+let players = 0; // Valeur par défaut au cas où aucun paramètre n'est fourni
 
 window.onload = function() {
     const params = new URLSearchParams(window.location.search);
@@ -210,23 +237,27 @@ window.onload = function() {
 
     // Démarrer la boucle avec la valeur dynamique
     initializePlayers();
+   
 };
 
 const playerName = [];
 function initializePlayers() {
     let i = 0;
     while (i < players) {
+      
         const player = {
           name: `Player ${i + 1}`,
           briefTime: 30 // Temps fixe de 30 secondes pour chaque joueur
         };
         playerName.push(player)
+        console.log(player)
         i++;
     }
     return playerName;
 }
 
 initializePlayers();
+console.log(playerName)
 
 
 nextSet.addEventListener("click", restart);

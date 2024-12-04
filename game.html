@@ -9,7 +9,7 @@
     <title>Game</title>
 </head>
 <body>
-    <main> 
+    <main class="game"> 
         <div class="begin manche">
             <p>Let's shuffle !</p>
             <img src="./shuffle.gif" alt="" width="50" height="50">
@@ -34,18 +34,20 @@
         <div class="voting manche">
             <p>voting</p>
         </div>
-        <div class="finish">
-            <p>Manche Terminé</p>
+        <div class="finish manche">
+            <p></p>
+            <p>Get ready for the next Round <br><br> stay focused !</p>
             <div class="continue">
-                <a href="./index.html" class="home">Abandonner</a>
-                <button id="restart" class="restart" type="submit">Continuer</button>
+                <button id="restart" class="restart btn">Continue</button>
+                
+                <a href="./index.html" class="home btn">Give Up</a>   
             </div>
             <div class="end hidden">
-                <a href="./index.html">Fin de partie</a>
+                <a href="./index.html">End Game</a>
             </div>
         </div>
         <button id='suivant' class="next">
-            suivant
+            skip
         </button>
         
         
