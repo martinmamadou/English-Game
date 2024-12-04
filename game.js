@@ -26,6 +26,7 @@ let timerRunning = false;
 let timerInterval = null;
 let playersFinishedBriefing = 0; // Compteur de joueurs ayant terminé leur briefing
 let i = 0
+let globalTimerValue = 0;
 
 let playerTimers = []; // Tableau pour stocker les timers des joueurs
 
@@ -46,7 +47,7 @@ function updateSetViewer(setNumber) {
 
 
 // Déclaration de la variable globale pour le timer
-let globalTimerValue = 0;
+
 // Fonction pour obtenir une carte aléatoire
 function getRandomCard() {
   const selectedCardIndex = Math.floor(Math.random() * cardType.length);
@@ -73,7 +74,7 @@ function displayCard() {
 }
 
 displayCard()
-console.log(displayCard())
+
 
 
 // Initialisation des étapes et stockage des valeurs par défaut des timers
