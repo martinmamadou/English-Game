@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/game.css">
+    <script defer type="module" src="./card.js"></script>
+    
+    <title>Game</title>
+</head>
+<body>
+    <main class="game"> 
+        <div class="begin manche">
+            <p>Let's shuffle !</p>
+            <img src="./shuffle.gif" alt="" width="50" height="50">
+            <p class="timer">3s</p>
+        </div>
+        <div class="card manche">
+            <p>Card Choice</p>
+            <p class="level"></p>
+            <img src="" alt="" class="gameImage" width="50px" height="50px">
+            <p class="timer">5s</p>
+        </div>
+        <div class="Draw manche">
+            <img src="" alt="" class="gameImage" width="50px" height="50px">
+            <p>Drawing</p>
+            <p class="timer"></p>
+        </div>
+        <div class="Brief manche">
+            <p>Brief</p>
+            <p class="player"></p>
+            <p class="timer"></p>
+        </div>
+        <div class="voting manche">
+            <p>voting</p>
+        </div>
+        <div class="finish manche">
+            <p></p>
+            <p class="congrat"></p>
+            <p>Get ready for the next Round <br><br> stay focused !</p>
+            <div class="continue">
+                <button id="restart" class="restart btn">Continue</button>
+                
+                <a href="./index.html" class="home btn">Give Up</a>   
+            </div>
+            <div class="end hidden">
+                <a href="./index.html">End Game</a>
+            </div>
+        </div>
+        <button id='suivant' class="next">
+            skip
+        </button>
+        
+        
+    </main>
+</body>
+</html>

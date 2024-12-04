@@ -23,7 +23,17 @@ img{
     width: 100%;
 }
 
+.btnContaint{
+    margin-top: 70px;
+    display: flex;
+    padding: 0 20px;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn{
+    
     background: var(--orange);
     border-radius: 6px;
     border: none;
@@ -31,11 +41,7 @@ img{
     font-weight: bold;
     font-size: 1.2em;
     padding: 12px 25px;
-    position: absolute;
-    bottom: 70px;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    
+
 }
 
 a {
@@ -60,19 +66,18 @@ label{
 .number-field{
     background: var(--background-color);
     margin: 0 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
     font-size: 2em;
     color: var(--jaune);
 }
 
-.number-input {
-    display: inline-flex;
-    align-items: center;
-    border: none;
-    border-radius: 5px;
-    overflow: hidden;
-  }
+#playersInput{
+    background: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-size: 1.1em;
+    color: var(--jaune);
+}
 
   .number-input input {
     width: 50px;

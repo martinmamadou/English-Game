@@ -5,20 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
     <title>BriefIt</title>
-    
 </head>
 <body>
     <main>
         <div class="banner">
             <img src="./Logo couleurs 1.png" alt="" class="logo" width="50" height="50">
         </div>
-        <form action="./game.html" method="GET">
-            <input type="number" min="3" max="8" placeholder="3" name="players">
-            <button class="btn start" type="submit">Play</button>
-        </form>
+        <form id="gameForm" action="" method="GET">
+            
+            <!-- Champs de nombre avec boutons + et - -->
+            <label for="players">Number of players</label>
+            <div class="number-field">
+                <div class="number-input">
+                    <button type="button" id="decrement" onclick="adjustNumber(-1)">-</button>
+                    <input type="number" id="playersInput" name="players" min="3" max="8" value="3" readonly>
+                    <button type="button" id="increment" onclick="adjustNumber(1)">+</button>
+                </div>
+            </div>
 
-        
-       
+            <!-- Champ caché pour déterminer l'URL d'action -->
+            <input type="hidden" name="redirectTo" id="redirectTo">
+            
+            <!-- Premier bouton pour rediriger vers game.html -->
+            <div class="btnContaint">
+                <button class="btn start" type="submit" onclick="setRedirect('game.html')">Random</button>
+                
+                <!-- Deuxième bouton pour rediriger vers anotherPage.html -->
+                <button class="btn another-page" type="submit" onclick="setRedirect('standard.html')">Standard</button>
+            </div>
+        </form>
     </main>
+
+    <script>
+        // Fonction pour définir la page de redirection basée sur le bouton cliqué
+        function setRedirect(page) {
+            document.getElementById('redirectTo').value = page;
+            document.getElementById('gameForm').action = page; // Mise à jour de l'action du formulaire
+        }
+
+        // Fonction pour ajuster la valeur du nombre avec les boutons + et -
+        function adjustNumber(change) {
+            const input = document.getElementById('playersInput');
+            let currentValue = parseInt(input.value);
+            currentValue += change;
+
+            // Limiter la valeur entre 3 et 8
+            if (currentValue >= 3 && currentValue <= 8) {
+                input.value = currentValue;
+            }
+        }
+    </script>
 </body>
 </html>
