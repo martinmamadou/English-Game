@@ -1,4 +1,4 @@
-// Définitions des constantes et sélections d'éléments DOM
+// Définitions des constantes et sélections des éléments DOM
 const div = document.querySelectorAll("main > div");
 const suivant = document.querySelector("#suivant");
 const finishDiv = document.querySelector(".finish");
@@ -8,16 +8,14 @@ const follow = document.querySelector(".continue");
 const level = document.querySelector(".level");
 const cardImg = document.querySelectorAll(".gameImage");
 const briefTime = document.querySelector('.Brief > .timer');
-const gameBG = document.querySelector('.game')
+const gameBG = document.querySelector('.game');
 const cardType = [
-  { name: "easy", icon: "facile.png", time: 60, color: '#3a2665'},
-  { name: "medium", icon: "esprit.png", time: 40 , color:'#ed6d1d'},
-  { name: "hard", icon: "main.png", time: 20, color: '#f6c543'},
-  { name: "very hard", icon: "bmx.png", time: 10, color: '#336c66'},
+  { name: "easy", icon: "facile.png", time: 60, color: '#3a2665' },
+  { name: "medium", icon: "esprit.png", time: 40, color: '#ed6d1d' },
+  { name: "hard", icon: "main.png", time: 20, color: '#f6c543' },
+  { name: "very hard", icon: "bmx.png", time: 10, color: '#336c66' },
 ];
 
-
- 
 // Variables de contrôle
 let set = 0;
 let currentIndex = 0;
@@ -25,28 +23,28 @@ let timerDefaults = [];
 let timerRunning = false;
 let timerInterval = null;
 let playersFinishedBriefing = 0; // Compteur de joueurs ayant terminé leur briefing
-let i = 0
+let i = 0;
 let globalTimerValue = 0;
-
 let playerTimers = []; // Tableau pour stocker les timers des joueurs
 
+// Fonction pour mettre à jour le numéro du set
+function updateSetViewer(currentSet) {
+  const finishParagraph = document.querySelector('.finish > p:first-of-type'); // Sélection du premier <p> dans la section finish
+  finishParagraph.textContent = `Round ${currentSet === 0 ? 1 : currentSet + 1} / 4`; // Affiche "Round 1 / 4" jusqu'à "Round 4 / 4"
+}
 
-function updateSetViewer(setNumber) {
-  const setViewer = finishDiv.firstElementChild; // Sélectionne le premier enfant de finishDiv
-  const displaySet = setNumber >= 0 && setNumber <= 3 ? setNumber + 1 : setNumber;
+// Fonction pour mettre à jour le message de félicitations à la fin du jeu
+function showCongratulations() {
+  const congratMessage = document.querySelector('.congrat'); // Sélectionner l'élément <p> avec la classe 'congrat'
+  congratMessage.classList.remove('hidden'); // Enlever la classe 'hidden' pour afficher le message
+  congratMessage.innerHTML = "Congratulation<br>Time to count the score"; // Afficher le message de félicitations
 
-  if (setNumber === 3) {
-    // Si c'est le dernier set (set 4), affiche un message spécial
-    setViewer.innerHTML = `Congratulation! <br> You completed all rounds!`;
-  } else {
-    // Sinon, affiche normalement l'état du set
-    setViewer.innerHTML = `Round ${displaySet} <br> Completed!`;
-  }
+  // Cacher le paragraphe suivant
+  const nextParagraph = congratMessage.nextElementSibling; // Sélectionner le paragraphe qui suit
+  nextParagraph.classList.add('hidden'); // Ajouter la classe 'hidden' pour cacher ce paragraphe
 }
 
 
-
-// Déclaration de la variable globale pour le timer
 
 // Fonction pour obtenir une carte aléatoire
 function getRandomCard() {
@@ -54,28 +52,32 @@ function getRandomCard() {
   return cardType[selectedCardIndex];
 }
 
-// Fonction pour afficher la carte (modifiée pour ne pas retourner une valeur)
+// Fonction pour afficher la carte (avec les console.log pour suivre l'exécution)
 function displayCard() {
+  globalTimerValue = 0;
   const selectedCard = getRandomCard();
-  console.log(selectedCard); // Afficher la carte pour vérification
+
+  // Log pour vérifier quelle carte a été sélectionnée
+  console.log("Carte sélectionnée :", selectedCard);
 
   level.textContent = selectedCard.name; // Afficher le nom de la carte
   const timer = document.querySelector(".Draw > .timer");
 
   globalTimerValue = parseInt(selectedCard.time); // Affecter la valeur du timer
-  console.log('ces moi', globalTimerValue); // Afficher la valeur du timer pour vérification
+
+  // Log pour vérifier la valeur du timer
+  console.log('Valeur du timer après sélection de la carte:', globalTimerValue);
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
   cardImg.forEach((elm) => {
     elm.src = selectedCard.icon; 
   }); // Mettre à jour l'icône de la carte
-  gameBG.style.backgroundColor = selectedCard.color
+  gameBG.style.backgroundColor = selectedCard.color;
+  
   return globalTimerValue; // Retourner la valeur du timer
 }
 
-displayCard()
-
-
+displayCard(); // Initialisation de la carte et du timer global
 
 // Initialisation des étapes et stockage des valeurs par défaut des timers
 div.forEach((elm, index) => {
@@ -98,24 +100,30 @@ div.forEach((elm, index) => {
 });
 
 // Fonction pour démarrer un timer
+// Fonction pour démarrer un timer
 function startTimer() {
-  clearInterval(timerInterval)
+  clearInterval(timerInterval);
   const currentStep = div[currentIndex];
   const timerElement = currentStep.querySelector(".timer");
+  console.log(timerElement);
   if (!timerElement || currentStep.classList.contains("hidden")) return;
 
   let timeLeft = 0;
 
-  
   // Si c'est l'étape de briefing, on utilise le temps fixe de 30s
   if (currentStep.classList.contains("Brief")) {
-    console.log(playerName)
     const playerBrief = document.querySelector('.player')
     let Currentplayer = playerName[i]
-    playerBrief.textContent = Currentplayer.name
+    playerBrief.textContent = Currentplayer.name;
     timeLeft = 1; // Temps fixe de 30 secondes
     timerElement.textContent = `${timeLeft}s`;
-  } else {
+  } 
+  // Si c'est l'étape de Draw, on utilise la valeur du timer spécifique à la carte
+  else if (currentStep.classList.contains("Draw")) {
+    timeLeft = globalTimerValue; // Temps spécifique de la carte pour Draw
+    timerElement.textContent = `${timeLeft}s`;
+  } 
+  else {
     timeLeft = parseInt(timerElement.textContent);
   }
 
@@ -141,25 +149,23 @@ function startTimer() {
       // Si on est dans l'étape de briefing, on ne passe pas encore à la suivante
       if (currentStep.classList.contains("Brief")) {
         playersFinishedBriefing++;
-        i++
+        i++;
         if (playersFinishedBriefing === players) {
           showNext(); // Tout le monde a fini le briefing, on passe à l'étape suivante
         } else {
-          console.log('on est la')
-          timeLeft = 10
-          startTimer()
+          timeLeft = 10;
+          startTimer();
         }
+      }
+      // Si on est dans l'étape de Draw, on passe à l'étape suivante
+      else if (currentStep.classList.contains("Draw")) {
+        showNext();
       } else {
         showNext();
       }
-      
-      console.log('weeeee', i)
-      console.log(playersFinishedBriefing)
     }
-    
   }, 1000);
 }
-console.log('ycccc', playersFinishedBriefing)
 
 
 // Fonction pour afficher l'étape suivante
@@ -183,11 +189,12 @@ function showNext() {
     suivant.classList.add("hidden");
     finishDiv.classList.remove("hidden");
 
-    updateSetViewer(set);
+    updateSetViewer(set); // Mise à jour de l'affichage des étapes
     set++;
   }
 
   if (set === 4) {
+    showCongratulations()
     follow.classList.add("hidden");
     endGame.classList.remove("hidden");
   }
@@ -204,8 +211,6 @@ function restart() {
     suivant.classList.remove("hidden");
     finishDiv.classList.add("hidden");
 
-    displayCard(); // Régénérer une carte aléatoire
-
     div.forEach((step, index) => {
       const timerElement = step.querySelector(".timer");
       if (timerElement) {
@@ -218,6 +223,7 @@ function restart() {
 
     playersFinishedBriefing = 0; // Réinitialiser le compteur des joueurs ayant terminé le briefing
     startTimer();
+    displayCard(); // Régénérer une carte aléatoire
   } else {
     follow.classList.add("hidden");
     endGame.classList.remove("hidden");
@@ -243,23 +249,17 @@ const playerName = [];
 function initializePlayers() {
     let i = 0;
     while (i < players) {
-      
-        const player = {
-          name: `Player ${i + 1}`,
-          briefTime: 30 // Temps fixe de 30 secondes pour chaque joueur
-        };
-        playerName.push(player)
-        console.log(player)
-        i++;
+      const player = {
+        name: `Player ${i + 1}`,
+        briefTime: 30 // Temps fixe de 30 secondes pour chaque joueur
+      };
+      playerName.push(player);
+      i++;
     }
     return playerName;
 }
 
 initializePlayers();
-console.log(playerName)
-
 
 nextSet.addEventListener("click", restart);
 suivant.addEventListener("click", showNext);
-
-
