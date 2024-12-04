@@ -16,6 +16,7 @@ const cardType = [
   { name: "very hard", icon: "bmx.png", time: 10, color: '#336c66'},
 ];
 
+
  
 // Variables de contrôle
 let set = 0;
@@ -25,6 +26,7 @@ let timerRunning = false;
 let timerInterval = null;
 let playersFinishedBriefing = 0; // Compteur de joueurs ayant terminé leur briefing
 let i = 0
+
 let playerTimers = []; // Tableau pour stocker les timers des joueurs
 
 
@@ -45,9 +47,6 @@ function updateSetViewer(setNumber) {
 
 // Déclaration de la variable globale pour le timer
 let globalTimerValue = 0;
-
-
-
 // Fonction pour obtenir une carte aléatoire
 function getRandomCard() {
   const selectedCardIndex = Math.floor(Math.random() * cardType.length);
@@ -56,7 +55,6 @@ function getRandomCard() {
 
 // Fonction pour afficher la carte (modifiée pour ne pas retourner une valeur)
 function displayCard() {
-  
   const selectedCard = getRandomCard();
   console.log(selectedCard); // Afficher la carte pour vérification
 
@@ -64,19 +62,19 @@ function displayCard() {
   const timer = document.querySelector(".Draw > .timer");
 
   globalTimerValue = parseInt(selectedCard.time); // Affecter la valeur du timer
-  console.log(globalTimerValue); // Afficher la valeur du timer pour vérification
+  console.log('ces moi', globalTimerValue); // Afficher la valeur du timer pour vérification
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
   cardImg.forEach((elm) => {
     elm.src = selectedCard.icon; 
   }); // Mettre à jour l'icône de la carte
-
   gameBG.style.backgroundColor = selectedCard.color
-
   return globalTimerValue; // Retourner la valeur du timer
 }
 
-displayCard();
+displayCard()
+console.log(displayCard())
+
 
 // Initialisation des étapes et stockage des valeurs par défaut des timers
 div.forEach((elm, index) => {
@@ -226,10 +224,10 @@ function restart() {
 }
 
 // Initialisation et gestion des événements
-console.log(globalTimerValue);
+
 startTimer();
 
-let players = 0; // Valeur par défaut au cas où aucun paramètre n'est fourni
+let players = 3; // Valeur par défaut au cas où aucun paramètre n'est fourni
 
 window.onload = function() {
     const params = new URLSearchParams(window.location.search);
@@ -262,3 +260,5 @@ console.log(playerName)
 
 nextSet.addEventListener("click", restart);
 suivant.addEventListener("click", showNext);
+
+

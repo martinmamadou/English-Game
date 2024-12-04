@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
     <title>BriefIt</title>
-    <script defer src="./timer.js"></script>
-    <script defer src="./game.js"></script>
+    
 </head>
 <body>
     <main>
@@ -14,16 +13,10 @@
             <img src="./Logo couleurs 1.png" alt="" class="logo" width="50" height="50">
         </div>
         <form action="./game.html" method="GET">
-            <label for="players">Number of Players</label>
-            <div class="number-input">
-              <button type="button" class="decrease">-</button>
-              
-              <input type="number" min="3" max="8" placeholder="3" name="players" required class="number-field">
-              <button type="button" class="increase">+</button>
-            </div>
+            <input type="number" min="3" max="8" placeholder="3" name="players">
             <button class="btn start" type="submit">Play</button>
-          </form>
-          <a href="./standard.html">standard</a>
+        </form>
+       
     </main>
 </body>
 </html>
