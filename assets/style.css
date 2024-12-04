@@ -24,6 +24,10 @@ img{
 .btn{
     background: var(--orange);
     border-radius: 6px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
     padding: 12px 25px;
 }
 

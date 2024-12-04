@@ -7,6 +7,7 @@ const endGame = document.querySelector(".end");
 const follow = document.querySelector(".continue");
 const level = document.querySelector(".level");
 const cardImg = document.querySelectorAll(".gameImage");
+const briefTime = document.querySelector('.Brief > .timer');
 
 const cardType = [
   { name: "easy", icon: "facile.png", time: 60 },
@@ -21,6 +22,9 @@ let currentIndex = 0;
 let timerDefaults = [];
 let timerRunning = false;
 let timerInterval = null;
+let playersFinishedBriefing = 0; // Compteur de joueurs ayant terminé leur briefing
+let i = 0
+let playerTimers = []; // Tableau pour stocker les timers des joueurs
 
 // Déclaration de la variable globale pour le timer
 let globalTimerValue = 0;
@@ -32,7 +36,6 @@ function getRandomCard() {
 }
 
 // Fonction pour afficher la carte (modifiée pour ne pas retourner une valeur)
-// Fonction pour afficher la carte et récupérer le timer
 function displayCard() {
   const selectedCard = getRandomCard();
   console.log(selectedCard); // Afficher la carte pour vérification
@@ -44,23 +47,21 @@ function displayCard() {
   console.log(globalTimerValue); // Afficher la valeur du timer pour vérification
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
-  cardImg.forEach((elm)=>{
+  cardImg.forEach((elm) => {
     elm.src = selectedCard.icon; 
-  })// Mettre à jour l'icône de la carte
+  }); // Mettre à jour l'icône de la carte
 
   return globalTimerValue; // Retourner la valeur du timer
 }
 
 displayCard();
 
-console.log(globalTimerValue);
-
 // Initialisation des étapes et stockage des valeurs par défaut des timers
 div.forEach((elm, index) => {
   if (index !== 0) elm.classList.add("hidden");
   const timerElement = elm.querySelector(".timer");
 
-  let timerValue = globalTimerValue// Valeur par défaut de 10
+  let timerValue = globalTimerValue; // Valeur par défaut de 10
 
   if (timerElement) {
     const rawValue = timerElement.textContent.trim(); // Récupère la valeur brute du timer
@@ -77,16 +78,26 @@ div.forEach((elm, index) => {
 
 // Fonction pour démarrer un timer
 function startTimer() {
+  clearInterval(timerInterval)
   const currentStep = div[currentIndex];
   const timerElement = currentStep.querySelector(".timer");
   if (!timerElement || currentStep.classList.contains("hidden")) return;
 
-  let timeLeft = parseInt(timerElement.textContent);
-  if (isNaN(timeLeft)) {
-    timeLeft = 0; // Valeur par défaut si NaN
+  let timeLeft = 0;
+
+  
+  // Si c'est l'étape de briefing, on utilise le temps fixe de 30s
+  if (currentStep.classList.contains("Brief")) {
+    const playerBrief = document.querySelector('.player')
+    let Currentplayer = playerName[i]
+    playerBrief.textContent = Currentplayer.name
+    console.log(Currentplayer)
+    timeLeft = 1; // Temps fixe de 30 secondes
+    timerElement.textContent = `${timeLeft}s`;
+  } else {
+    timeLeft = parseInt(timerElement.textContent);
   }
 
-  timerElement.textContent = `${timeLeft}s`;
   timerRunning = true;
 
   timerInterval = setInterval(() => {
@@ -105,10 +116,29 @@ function startTimer() {
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       timerRunning = false;
-      showNext();
+
+      // Si on est dans l'étape de briefing, on ne passe pas encore à la suivante
+      if (currentStep.classList.contains("Brief")) {
+        playersFinishedBriefing++;
+        i++
+        if (playersFinishedBriefing === players) {
+          showNext(); // Tout le monde a fini le briefing, on passe à l'étape suivante
+        } else {
+          console.log('on est la')
+          timeLeft = 10
+          startTimer()
+        }
+      } else {
+        showNext();
+      }
+      
+      console.log('weeeee', i)
+      console.log(playersFinishedBriefing)
     }
+    
   }, 1000);
 }
+console.log('ycccc', playersFinishedBriefing)
 
 // Fonction pour afficher l'étape suivante
 function showNext() {
@@ -160,6 +190,7 @@ function restart() {
       }
     });
 
+    playersFinishedBriefing = 0; // Réinitialiser le compteur des joueurs ayant terminé le briefing
     startTimer();
   } else {
     follow.classList.add("hidden");
@@ -168,10 +199,35 @@ function restart() {
 }
 
 // Initialisation et gestion des événements
-
-
 console.log(globalTimerValue);
 startTimer();
+
+let players = 3; // Valeur par défaut au cas où aucun paramètre n'est fourni
+
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    players = parseInt(params.get('players')) || players; // Récupère et met à jour 'players' ou garde 3 par défaut
+
+    // Démarrer la boucle avec la valeur dynamique
+    initializePlayers();
+};
+
+const playerName = [];
+function initializePlayers() {
+    let i = 0;
+    while (i < players) {
+        const player = {
+          name: `Player ${i + 1}`,
+          briefTime: 30 // Temps fixe de 30 secondes pour chaque joueur
+        };
+        playerName.push(player)
+        i++;
+    }
+    return playerName;
+}
+
+initializePlayers();
+
 
 nextSet.addEventListener("click", restart);
 suivant.addEventListener("click", showNext);

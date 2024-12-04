@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
     <title>BriefIt</title>
+    <script defer src="./timer.js"></script>
 </head>
 <body>
     <main>
         <div class="banner">
             <img src="./Logo couleurs 1.png" alt="" class="logo" width="50" height="50">
         </div>
-        <a href="./game.html" class="start btn">Commencez</a>
+        <form action="./game.html" method="GET">
+            <input type="number" min="3" max="8" placeholder="3" name="players">
+            <button class="btn start" type="submit">Play</button>
+        </form>
+       
     </main>
 </body>
 </html>
