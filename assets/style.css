@@ -5,17 +5,58 @@
     --vert : #336c66;
 }
 
+@font-face {
+    font-family: poppins;
+    src: url(./font/Poppins-Medium.ttf);
+  }
+
+.hidden{
+    display: none;
+}
+
+p,label,button{
+    font-family: 'poppins';
+}
+
+.modal{
+    text-align: justify;
+    padding: 5px 10px;
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: 600;
+    overflow: auto;
+    height: 80vh;
+    width: 92vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--jaune);
+    color: black;
+    
+}
+.modalOpener{
+    margin-top: 30px;
+    display: flex;
+}
+
 body{
     background: var(--background-color);
     max-height: 100vh;
     overflow: hidden;
 }
 main{
+    animation: main 0.3s ease 0s 1 normal forwards;
     text-align: center;
 }
 .banner{
-    padding: 70px 20px;
+    padding: 70px 20px 0;
     height: fit-content;
+}
+.slogan{
+    
+    font-weight: 600;
+    color: white;
+    margin: 0 0 60px;
 }
 
 img{
@@ -98,7 +139,7 @@ label{
   }
 
   .number-input button:hover {
-    background-color: #ddd;
+    background-color: var(--jaune);
   }
 
  
@@ -107,3 +148,12 @@ label{
     background-color: #0056b3;
   }
 
+  @keyframes main {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

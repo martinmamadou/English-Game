@@ -30,7 +30,7 @@ let playerTimers = []; // Tableau pour stocker les timers des joueurs
 // Fonction pour mettre à jour le numéro du set
 function updateSetViewer(currentSet) {
   const finishParagraph = document.querySelector('.finish > p:first-of-type'); // Sélection du premier <p> dans la section finish
-  finishParagraph.textContent = `Round ${currentSet === 0 ? 1 : currentSet + 1} / 4`; // Affiche "Round 1 / 4" jusqu'à "Round 4 / 4"
+  finishParagraph.innerHTML = `Round ${currentSet === 0 ? 1 : currentSet + 1} / 4<br> Completed ! `; // Affiche "Round 1 / 4" jusqu'à "Round 4 / 4"
 }
 
 // Fonction pour mettre à jour le message de félicitations à la fin du jeu
@@ -70,8 +70,8 @@ function displayCard() {
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
   cardImg.forEach((elm) => {
-    elm.src = selectedCard.icon; 
-  }); // Mettre à jour l'icône de la carte
+    elm.src = selectedCard.icon; // Mise à jour du chemin de l'image de la carte
+});  // Mettre à jour l'icône de la carte
   gameBG.style.backgroundColor = selectedCard.color;
   
   return globalTimerValue; // Retourner la valeur du timer
@@ -114,7 +114,7 @@ function startTimer() {
   if (currentStep.classList.contains("Brief")) {
     const playerBrief = document.querySelector('.player')
     let Currentplayer = playerName[i]
-    playerBrief.textContent = Currentplayer.name;
+    playerBrief.textContent = `${Currentplayer.name} turn `;
     timeLeft = 1; // Temps fixe de 30 secondes
     timerElement.textContent = `${timeLeft}s`;
   } 

@@ -7,6 +7,19 @@
   --hue-increment: calc(360 / var(--timer-length));
 }
 
+@font-face {
+  font-family: poppins;
+  src: url(./font/Poppins-Medium.ttf);
+}
+
+.hidden{
+  display: none;
+}
+
+p,label,button{
+  font-family: 'poppins';
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -52,7 +65,7 @@ div{
 
 .manche p:first-child {
     font-size: 2em;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
   .finish {
@@ -82,7 +95,7 @@ div{
   }
 }
 
-.gameImage {
+.gameImage,.image {
   width: 120px;
   height: 120px;
   padding: 40px;
@@ -92,7 +105,7 @@ div{
   margin: 20px 0;
 }
 
-.gameImage:hover {
+.gameImage:hover, .image:hover {
   transform: scale(1.1);
 }
 
@@ -101,7 +114,7 @@ div{
   padding: 10px 20px;
   font-size: 1.3rem;
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: uppercase;
   background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba(252, 252, 252, 0.074);
 backdrop-filter: blur( 2px );

@@ -4,13 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
+    <script defer src="./index.js"></script>
     <title>BriefIt</title>
 </head>
 <body>
     <main>
-        <div class="banner">
-            <img src="./Logo couleurs 1.png" alt="" class="logo" width="50" height="50">
+        <div class="modal hidden">
+            <p><strong>Brief It Game Rules</strong></p>
+            <p>   Objective of the Game </p>
+               <p> Brief It is a logo creation and evaluation game designed for professionals in the digital field. The goal
+                is to design logos that creatively and accurately respond to various briefs, and to earn tokens by
+                receiving votes from other players for the quality of your creations.</p>
+                <p>Number of Players</p>
+                <p>3 to 8 players.</p>
+                <p>Materials Needed</p>
+                <ul>
+                    <li>Brief cards (about 20 cards)</li>
+                    <li>Sheets of paper</li>
+                    <li>Pencils</li>
+                    <li>Token plaques for voting</li>
+                </ul>
+                <p>Gameplay</p>
+                <p>The game is divided into four rounds, each with a set duration:</p>
+                <ul>
+                    <li>First round: 3 minutes</li>
+                    <li>Second round: 2 minutes</li>
+                    <li>Third round: 1 minute</li>
+                    <li>Fourth round: 30 seconds</li>
+                </ul>
+                <p>Rules</p>
+                <ul>
+                    <li>Distribution of Briefs: At the start of each round, a brief is randomly drawn and presented to
+                        all players. The briefs vary in detail and difficulty to adjust the level of challenge.</li>
+                    <li>Logo Creation: Players have the allotted time to draw a logo that responds to the brief on
+                        their sheet of paper using a pencil.</li>
+                    <li>Presentation: After the creation period, each player presents their logo to the others. The
+                        pitch should explain how the logo meets the requirements of the brief.</li>
+                    <li>
+                        Voting: After the presentations, each player distributes their tokens to the logos of other
+                    players which they believe have best met the brief. Players cannot vote for their own logo.
+                    </li>
+                    <li>
+                        Token Counting: At the end of each round, the tokens are counted and added to each
+                    player's total.
+                    </li>
+                    
+                </ul>
+                
+                
+
+                
+                <p>End of the Game and Determining the Winner
+                At the end of the four rounds, the player with the most tokens is declared the winner. In the event of a
+                tie, a final rapid brief is given for a tie-breaking round.</p>
+                <p>Strategic Tips
+                <ol>
+                    <li>Be precise in your creations to effectively meet the briefs.</li>
+                    <li>Pay attention to other players' presentations to make informed choices during voting.</li>
+                    <li>Manage your time carefully to maximize the quality of your logo within the allotted time limits.</li>
+                </ol>
         </div>
+        <button class="btn modalOpener">Rules</button>
+        <div class="banner">
+            <img src="./assets/img/Logo couleurs 1.png" alt="" class="logo" width="50" height="50">
+        </div>
+        <p class="slogan">Creativity With No Limit !</p>
         <form id="gameForm" action="" method="GET">
             
             <!-- Champs de nombre avec boutons + et - -->
