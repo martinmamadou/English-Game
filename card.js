@@ -14,8 +14,8 @@ const stop = document.getElementById('stop')
 
 const cardType = [
   { name: "easy", icon: "facile.png", time: 180, color: '#336c66' },
-  { name: "medium", icon: "esprit.png", time: 120, color: '#ed6d1d' },
-  { name: "hard", icon: "main.png", time: 60, color: '#f6c543' },
+  { name: "medium", icon: "esprit.png", time: 120, color: '#f6c543' },
+  { name: "hard", icon: "main.png", time: 60, color: '#ed6d1d' },
   { name: "very hard", icon: "bmx.png", time: 30, color: '#3a2665' },
 ];
 
