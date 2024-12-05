@@ -11,6 +11,4 @@ button.addEventListener("click", ()=>{
         modal.classList.add('hidden')
         button.textContent= 'Rules'
     }
-    
-    
 })
