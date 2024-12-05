@@ -37,7 +37,7 @@ p,label,button{
 .modalOpener{
     margin-top: 5px;
     position: absolute;
-    right: 5px;
+    right: 20px;
     z-index: 2;
 }
 
@@ -142,8 +142,6 @@ label{
   .number-input button:hover {
     background-color: var(--jaune);
   }
-
- 
 
   .btn.start:hover {
     background-color: var(--jaune);

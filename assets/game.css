@@ -82,6 +82,10 @@ div{
     align-items: center;
   }
 
+  .finish p:first-child{
+    padding-top: 40px;
+  }
+
 .timer {
   font-size: 2rem;
   font-weight: bold;
