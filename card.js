@@ -9,6 +9,7 @@ const level = document.querySelector(".level");
 const cardImg = document.querySelectorAll(".gameImage");
 const briefTime = document.querySelector('.Brief > .timer');
 const gameBG = document.querySelector('.game');
+const audio = document.getElementById('timerSound');
 const cardType = [
   { name: "easy", icon: "facile.png", time: 60, color: '#3a2665' },
   { name: "medium", icon: "esprit.png", time: 40, color: '#ed6d1d' },
@@ -150,6 +151,11 @@ function startTimer() {
       timeLeft = 0; // Fix NaN propagation
     }
     timerElement.textContent = `${timeLeft}s`;
+
+
+    if(timeLeft <= 1){
+      audio.play()
+    }
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval);

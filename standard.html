@@ -4,35 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/game.css">
-    <script defer type="module" src="./card.js"></script>
+    <script defer type="module" src="./game.js"></script>
     
     <title>Game</title>
 </head>
 <body>
-    <main class="game"> 
+    <main class="game">
+        <audio id="timerSound" controls hidden>
+            <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/41203/beep.ogg" type="audio/ogg">
+        </audio> 
         <div class="begin manche">
             <p>Let's shuffle !</p>
-            <img src="./shuffle.gif" alt="" width="50" height="50">
+            <img src="./assets/img/shuffle.gif" alt="" width="50" height="50" class="image">
             <p class="timer">3s</p>
         </div>
         <div class="card manche">
-            <p>Card Choice</p>
+            <p>Card Draw !</p>
+            <p>listen close</p>
             <p class="level"></p>
             <img src="" alt="" class="gameImage" width="50px" height="50px">
             <p class="timer">5s</p>
         </div>
         <div class="Draw manche">
-            <img src="" alt="" class="gameImage" width="50px" height="50px">
             <p>Drawing</p>
+            <p>Express your creativity</p>
+            <img src="./assets/img/crayon.png" alt="" class="image" width="50px" height="50px">
             <p class="timer"></p>
         </div>
         <div class="Brief manche">
             <p>Brief</p>
             <p class="player"></p>
+            <img src="./assets/img/bulle.png" alt="" class="image">
             <p class="timer"></p>
         </div>
         <div class="voting manche">
             <p>voting</p>
+            <img src="./assets/img/lever-la-main.png" alt="" class="image">
+            <p>Time to elect the best player of the round</p>
         </div>
         <div class="finish manche">
             <p></p>
@@ -50,6 +58,8 @@
         <button id='suivant' class="next">
             skip
         </button>
+        
+        
     </main>
 </body>
 </html>

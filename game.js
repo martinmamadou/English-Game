@@ -9,6 +9,7 @@ const level = document.querySelector(".level");
 const cardImg = document.querySelectorAll(".gameImage");
 const briefTime = document.querySelector('.Brief > .timer');
 const gameBG = document.querySelector('.game');
+const audio = document.getElementById('timerSound');
 const cardType = [
   { name: "easy", icon: "facile.png", time: 60, color: '#3a2665' },
   { name: "medium", icon: "esprit.png", time: 40, color: '#ed6d1d' },
@@ -115,7 +116,7 @@ function startTimer() {
     const playerBrief = document.querySelector('.player')
     let Currentplayer = playerName[i]
     playerBrief.textContent = `${Currentplayer.name} turn `;
-    timeLeft = 1; // Temps fixe de 30 secondes
+    timeLeft = 10; // Temps fixe de 30 secondes
     timerElement.textContent = `${timeLeft}s`;
   } 
   // Si c'est l'étape de Draw, on utilise la valeur du timer spécifique à la carte
@@ -142,10 +143,13 @@ function startTimer() {
     }
     timerElement.textContent = `${timeLeft}s`;
 
+    if(timeLeft <= 1){
+      audio.play()
+    }
+
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       timerRunning = false;
-
       // Si on est dans l'étape de briefing, on ne passe pas encore à la suivante
       if (currentStep.classList.contains("Brief")) {
         playersFinishedBriefing++;
