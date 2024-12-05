@@ -13,10 +13,10 @@ const audio = document.getElementById('timerSound');
 const stop = document.getElementById('stop')
 
 const cardType = [
-  { name: "easy", icon: "facile.png", time: 60, color: '#3a2665' },
+  { name: "easy", icon: "facile.png", time: 60, color: '#336c66' },
   { name: "medium", icon: "esprit.png", time: 40, color: '#ed6d1d' },
   { name: "hard", icon: "main.png", time: 20, color: '#f6c543' },
-  { name: "very hard", icon: "bmx.png", time: 10, color: '#336c66' },
+  { name: "very hard", icon: "bmx.png", time: 10, color: '#3a2665' },
 ];
 
 // Variables de contrôle
@@ -150,6 +150,7 @@ function startTimer() {
     // Couleur rouge si temps <= 3 secondes
     if (timeLeft <= 3) {
       timerElement.style.backgroundColor = "rgba(255, 0, 0, 0.55)";
+
     }
 
     if (timeLeft <= 1) {
@@ -211,10 +212,12 @@ function showNext() {
 
     const timerElement = nextStep.querySelector(".timer");
     if (timerElement) {
+      timerElement.style.backgroundColor = "rgba(85, 255, 0, 0.55)"; // Couleur verte
       const defaultTime = timerDefaults[currentIndex];
       timerElement.textContent = isNaN(defaultTime) ? "0s" : `${defaultTime}s`;
       startTimer();
     }
+
   } else {
     stop.classList.add('hidden')
     currentStep.classList.add("hidden");
