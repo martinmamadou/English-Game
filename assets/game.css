@@ -53,6 +53,13 @@ div{
   display: none !important;
 }
 
+.logo{
+  position: absolute;
+  top: 50;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+
 .manche {
   display: flex;
   flex-direction: column;
@@ -60,13 +67,13 @@ div{
   gap: 10px;
   height: 80vh;
   justify-content: center;
-  
 }
 
 .manche p:first-child {
     font-size: 2em;
     margin-bottom: 50px;
 }
+
 
   .finish {
     display: flex;
@@ -78,7 +85,7 @@ div{
 .timer {
   font-size: 2rem;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(85, 255, 0, 0.55);
   padding: 10px 20px;
   border-radius: 8px;
   animation: pulse 1s infinite ease-in-out;
@@ -96,26 +103,34 @@ div{
 }
 
 .gameImage,.image {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease-in-out;
   margin: 20px 0;
+  border: 1px dotted black;
 }
 
 .gameImage:hover, .image:hover {
   transform: scale(1.1);
 }
 
-.next {
+#stop img{
+  height: 20px;
+  width: 20px;
+}
+
+.next,#stop {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 1.3rem;
   font-weight: 700;
   text-transform: uppercase;
-  background: rgba( 255, 255, 255, 0.25 );
+  background: rgba(0, 0, 0, 0.25);
+
+  
 box-shadow: 0 8px 32px 0 rgba(252, 252, 252, 0.074);
 backdrop-filter: blur( 2px );
 -webkit-backdrop-filter: blur( 2px );
@@ -129,7 +144,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .next:hover {
-  background: hsl(calc(var(--starting-hue) + 40), 70%, 50%);
+  background: rgba(85, 255, 0, 0.55);
 }
 
 
@@ -157,7 +172,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     margin-top: 100px;
 }
 
-.restart {
+.restart{
   background: #4caf50; /* Green for continue */
   animation: pulse 1.5s infinite ease-in-out;
   border: none;

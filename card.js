@@ -10,6 +10,8 @@ const cardImg = document.querySelectorAll(".gameImage");
 const briefTime = document.querySelector('.Brief > .timer');
 const gameBG = document.querySelector('.game');
 const audio = document.getElementById('timerSound');
+const stop = document.getElementById('stop')
+
 const cardType = [
   { name: "easy", icon: "facile.png", time: 60, color: '#3a2665' },
   { name: "medium", icon: "esprit.png", time: 40, color: '#ed6d1d' },
@@ -78,9 +80,7 @@ function displayCard() {
   console.log('Valeur du timer après sélection de la carte:', globalTimerValue);
 
   timer.innerHTML = globalTimerValue; // Mettre à jour le DOM avec le timer
-  cardImg.forEach((elm) => {
-    elm.src = selectedCard.icon; 
-  }); // Mettre à jour l'icône de la carte
+  
   gameBG.style.backgroundColor = selectedCard.color;
   
   return globalTimerValue; // Retourner la valeur du timer
@@ -110,32 +110,30 @@ div.forEach((elm, index) => {
 });
 
 // Fonction pour démarrer un timer
-// Fonction pour démarrer un timer
 function startTimer() {
   clearInterval(timerInterval);
   const currentStep = div[currentIndex];
   const timerElement = currentStep.querySelector(".timer");
-  console.log(timerElement);
+  
   if (!timerElement || currentStep.classList.contains("hidden")) return;
 
   let timeLeft = 0;
+  let initialTime = 0;
 
-  // Si c'est l'étape de briefing, on utilise le temps fixe de 30s
   if (currentStep.classList.contains("Brief")) {
-    const playerBrief = document.querySelector('.player')
-    let Currentplayer = playerName[i]
-    playerBrief.textContent = Currentplayer.name;
-    timeLeft = 1; // Temps fixe de 30 secondes
-    timerElement.textContent = `${timeLeft}s`;
-  } 
-  // Si c'est l'étape de Draw, on utilise la valeur du timer spécifique à la carte
-  else if (currentStep.classList.contains("Draw")) {
-    timeLeft = globalTimerValue; // Temps spécifique de la carte pour Draw
-    timerElement.textContent = `${timeLeft}s`;
-  } 
-  else {
+    const playerBrief = document.querySelector('.player');
+    let Currentplayer = playerName[i];
+    playerBrief.textContent = `${Currentplayer.name} turn `;
+    timeLeft = Currentplayer.briefTime; // Utilisation de briefTime pour chaque joueur
+    timerElement.style.backgroundColor = "rgba(85, 255, 0, 0.55)"; // Réinitialisation de la couleur au vert pour chaque joueur
+  } else if (currentStep.classList.contains("Draw")) {
+    timeLeft = globalTimerValue;
+  } else {
     timeLeft = parseInt(timerElement.textContent);
   }
+
+  initialTime = timeLeft; 
+  timerElement.textContent = `${timeLeft}s`;
 
   timerRunning = true;
 
@@ -147,40 +145,67 @@ function startTimer() {
     }
 
     timeLeft--;
-    if (isNaN(timeLeft)) {
-      timeLeft = 0; // Fix NaN propagation
-    }
     timerElement.textContent = `${timeLeft}s`;
 
+    if (isNaN(timeLeft)) {
+      timeLeft = 0;
+    }
 
-    if(timeLeft <= 1){
-      audio.play()
+    // Couleur orange si temps <= moitié du temps initial, sauf pour les dernières secondes
+    if (timeLeft <= initialTime / 2 && timeLeft > 3) {
+      timerElement.style.backgroundColor = "orange";
+    }
+
+    // Couleur rouge si temps <= 3 secondes
+    if (timeLeft <= 3) {
+      timerElement.style.backgroundColor = "rgba(255, 0, 0, 0.55)";
+    }
+
+    if (timeLeft <= 1) {
+      audio.play();
     }
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       timerRunning = false;
 
-      // Si on est dans l'étape de briefing, on ne passe pas encore à la suivante
       if (currentStep.classList.contains("Brief")) {
         playersFinishedBriefing++;
         i++;
         if (playersFinishedBriefing === players) {
-          showNext(); // Tout le monde a fini le briefing, on passe à l'étape suivante
+          showNext(); 
         } else {
-          timeLeft = 10;
-          startTimer();
+          startTimer(); // Repart pour le joueur suivant
         }
-      }
-      // Si on est dans l'étape de Draw, on passe à l'étape suivante
-      else if (currentStep.classList.contains("Draw")) {
-        showNext();
       } else {
-        showNext();
+        showNext(); 
       }
     }
   }, 1000);
 }
+
+
+
+
+stop.addEventListener('click', function(){
+  if(!stop.classList.contains('s')){
+    stop.classList.add('s')
+    stop.style.backgroundColor = "rgba(255, 0, 0, 0.55)"
+    const button = stop.firstElementChild
+    button.src = 'bouton-jouer.png'
+    console.log(button)
+    clearInterval(timerInterval)
+    console.log('non')
+  }else{
+    stop.style.backgroundColor= "rgba(0, 0, 0, 0.25)"
+    const button = stop.firstElementChild
+    button.src = 'pause.png'
+    stop.classList.remove('s')
+    startTimer()
+  }
+  
+  
+})
 
 
 // Fonction pour afficher l'étape suivante
@@ -200,6 +225,7 @@ function showNext() {
       startTimer();
     }
   } else {
+    stop.classList.add('hidden')
     currentStep.classList.add("hidden");
     suivant.classList.add("hidden");
     finishDiv.classList.remove("hidden");
@@ -210,6 +236,7 @@ function showNext() {
 
   if (set === 4) {
     showCongratulations()
+    stop.classList.add('hidden')
     follow.classList.add("hidden");
     endGame.classList.remove("hidden");
   }
@@ -224,6 +251,7 @@ function restart() {
     div.forEach((elm) => elm.classList.add("hidden"));
     div[currentIndex].classList.remove("hidden");
     suivant.classList.remove("hidden");
+    stop.classList.remove('hidden')
     finishDiv.classList.add("hidden");
 
     div.forEach((step, index) => {
